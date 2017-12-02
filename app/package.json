@@ -1,0 +1,14 @@
+{
+  "name": "ritebite",
+  "version": "1.0.0",
+  "description": "Find the healthiest recipes for your favorite foods!",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
