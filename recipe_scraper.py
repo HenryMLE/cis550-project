@@ -1,9 +1,11 @@
 from bs4 import BeautifulSoup
 import openpyxl
 import urllib2
+import pprint
 import json
 import re
 
+pp = pprint.PrettyPrinter(indent=4)
 
 phrases = set()
 wb = openpyxl.load_workbook('ABBREV_clean_all.xlsx')
@@ -47,7 +49,7 @@ def get_recipe(url):
     doc = res.read()
 
     soup = BeautifulSoup(doc, 'html.parser')
-    title = soup.find(class_="o-AssetTitle__a-Headline")
+    title = soup.find(class_="o-AssetTitle__a-Headline").text
     ingredients = soup.find_all(class_="o-Ingredients__a-ListItemText")
     directions = soup.find(class_="o-Method__m-Body").text
 
@@ -71,25 +73,47 @@ def get_recipe(url):
         text = re.sub(r'[^\w\s]','',i.text)
         text = re.sub(r' ?\d+ ?', '', text)
         fd = sim_score(text, phrases)
-        parsedIngrd.push({quantity : qty, food : fd})
+        parsedIngrd.append({"quantity" : qty, "food" : fd})
     
     recipe = {
-        title : title,
-        ingredients : parsedIngrd,
-        directions : directions
+        "title" : title,
+        "ingredients" : parsedIngrd,
+        "directions" : directions
     }
 
     return recipe
 
 
+
+def get_urls():
+    extensions = ["123", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "xyz"]
+
+    for ext in extensions:
+        print("on page " + ext)
+        recipes = []
+        req = urllib2.Request("http://www.foodnetwork.com/recipes/food-network-kitchen/" + ext)
+        res = urllib2.urlopen(req)
+        doc = res.read()
+
+        soup = BeautifulSoup(doc, 'html.parser')
+        urls = soup.find_all(class_="m-PromoList__a-ListItem", )
+        for url in urls:
+            try:
+                recipes.append(get_recipe("http:" + url.a['href']))
+            except Exception as e:
+                print("skipping recipe")
+
+        fname = ext + ".json";
+        with open(fname, 'w') as f:
+            json.dump(recipes, f)
     
 
     
 
 
 
-
-get_recipe("http://www.foodnetwork.com/recipes/food-network-kitchen/almost-famous-spinach-artichoke-dip-recipe-1973257")
+get_urls()
+# get_recipe("http://www.foodnetwork.com/recipes/food-network-kitchen/3-ingredient-gluten-free-banana-pancakes-3363581")
 
                 
 
