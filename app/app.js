@@ -9,6 +9,8 @@ var MongoClient = require ('mongodb').MongoClient;
 var index = require('./routes/index.js');
 var recipes = require('./routes/recipes.js');
 var signin = require('./routes/signin.js');
+var newAccount = require('./routes/newAccount.js');
+database = null;
 
 var app = express();
 
@@ -23,23 +25,29 @@ MongoClient.connect('mongodb://team:FUSIONONFIRE1@ds137826.mlab.com:37826/ritebi
 
   db.collection('users').find().toArray(function(err, result) {
     if(err) throw err
-
     console.log(result);
   })
+
+  setDb(db);
 });
+
+var setDb = function(db) {
+    database = db;
+}
 
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'views')));
 
 app.use('/', index);
 app.use('/recipes', recipes);
 app.use('/signin', signin);
+app.use('/newAccount', newAccount);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
