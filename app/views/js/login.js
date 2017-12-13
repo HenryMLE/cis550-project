@@ -1,4 +1,3 @@
-console.log("hi");
 $(document).ready(function() {
     var email = '';
     var pass = '';
@@ -16,12 +15,18 @@ $(document).ready(function() {
         console.log(pass);
     });
 
-    $('#create').click(function() {
+    $('#login').click(function() {
         console.log('hiiiiiiii');
         console.log(email);
         console.log(pass);
-        var post = $.post('/newAccount', {'email': email, 'password': pass}, function(data) {
+        var post = $.post('/signin', {'email': email, 'password': pass}, function(data) {
             console.log(data);
+            if (data.found) {
+                $.get('/account', {'username':email});
+            }
+            else {
+
+            }
         });
     });
 });

@@ -18,10 +18,6 @@ router.post('/', function(req, res, next) {
         recipes: []
     });
     console.log('Saved new user!');
-    // res.send({username: email,
-    //     password: pass,
-    //     recipes: []});
-    // console.log('Saved new user!');
 });
 
 
