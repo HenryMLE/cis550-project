@@ -9,17 +9,19 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
     console.log(req.body);
+    console.log('reached browser post!');
     var email = req.body.email;
     var pass = req.body.password;
-    database.save({
+    database.collection('users').save({
         username: email,
         password: pass,
         recipes: []
     });
-    res.send({username: email,
-        password: pass,
-        recipes: []});
     console.log('Saved new user!');
+    // res.send({username: email,
+    //     password: pass,
+    //     recipes: []});
+    // console.log('Saved new user!');
 });
 
 
