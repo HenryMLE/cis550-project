@@ -11,6 +11,27 @@ mongoclient.connect(url, function(err, db) {
   _db = db;
 });
 
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+  host : "ritebite.cqyy09trkzju.us-east-1.rds.amazonaws.com",
+  user : "sakumar",
+  password : "fusiononfire1",
+  port: 3306
+});
+
+connection.connect(function(err){
+  if (err) {
+    console.error("Could not connect to RDS " + err.stack);
+  } else {
+    console.log('Connected to RDS');    
+  }
+});
+
+var sql = "SELECT shrt_desc FROM ritebite.ingredients;"
+connection.query(sql, function(err, result){
+  console.log(result)
+});
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index');
