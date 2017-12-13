@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var MongoClient = require ('mongodb').MongoClient;
 
 var index = require('./routes/index.js');
 var recipes = require('./routes/recipes.js');
@@ -16,6 +17,17 @@ app.set('views', path.join(__dirname, 'views'));
 console.log(path.join(__dirname, 'views'));
 app.engine('html', require('ejs').__express);
 app.set('view engine', 'html');
+
+MongoClient.connect('mongodb://team:FUSIONONFIRE1@ds137826.mlab.com:37826/ritebite', function (err, db) {
+  if (err) throw err
+
+  db.collection('users').find().toArray(function(err, result) {
+    if(err) throw err
+
+    console.log(result);
+  })
+});
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
