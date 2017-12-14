@@ -1,0 +1,13 @@
+html
+  body
+    div
+      h1 #{params.rec.title}
+
+      h2 Recipe Directions
+      p #{params.rec.directions}
+
+      h2 Recipe Ingredients
+      div
+        for ing in params.rec.ingredients
+          if ing.food
+            h4 #{ing.food} : #{ing.quantity}

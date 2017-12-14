@@ -23,20 +23,13 @@ connection.connect(function(err){
   if (err) {
     console.error("Could not connect to RDS " + err.stack);
   } else {
-    console.log('Connected to RDS');    
+    console.log('Connected to RDS');
   }
 });
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index');
-});
-
-router.get('/search/:query', function(req, res, next) {
-  cur = _db.collection('recipes').find({"title" : {$regex : ".*"+req.params.query+".*", $options : "i"}})
-  cur.toArray(function(err, docs) {
-    console.log(docs)
-  });
 });
 
 router.get('/create', function(req, res, next){

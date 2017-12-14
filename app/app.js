@@ -10,6 +10,9 @@ var index = require('./routes/index.js');
 var recipes = require('./routes/recipes.js');
 var signin = require('./routes/signin.js');
 var newAccount = require('./routes/newAccount.js');
+var account = require('./routes/account.js');
+var search = require('./routes/searchResults.js');
+
 database = null;
 
 var app = express();
@@ -48,6 +51,8 @@ app.use('/', index);
 app.use('/recipes', recipes);
 app.use('/signin', signin);
 app.use('/newAccount', newAccount);
+app.use('/account', account);
+app.use('/search', search);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
