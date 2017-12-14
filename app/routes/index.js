@@ -27,11 +27,6 @@ connection.connect(function(err){
   }
 });
 
-var sql = "SELECT shrt_desc FROM ritebite.ingredients;"
-connection.query(sql, function(err, result){
-  console.log(result)
-});
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index');
@@ -43,6 +38,17 @@ router.get('/search/:query', function(req, res, next) {
     console.log(docs)
   });
 });
+
+router.get('/create', function(req, res, next){
+  var sql = "SELECT shrt_desc FROM ritebite.ingredients;"
+  connection.query(sql, function(err, result){
+    var names = []
+    for(var i = 0; i < result.length; i++) {
+      names.push(result[i].shrt_desc)
+    }
+    //send to front end
+  });
+})
 
 
 module.exports = router;
