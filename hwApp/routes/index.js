@@ -118,7 +118,7 @@ router.get('/recipe/:title', function(req,res) {
 
 
 router.get('/create', function(req, res) {
-  res.sendFile(path.join(__dirname, '../', 'views', 'create.html'));  
+  res.sendFile(path.join(__dirname, '../', 'views', 'create.html'));
 });
 
 
@@ -170,28 +170,7 @@ router.post('/addRecipe', function(req, res, nexxt) {
 // ================================== //
 // ========= USER ACCOUNT =========== //
 // ================================== //
-router.get('/signin', function(req, res) {
-  res.sendFile(path.join(__dirname, '../', 'views', 'signin.html'));
-});
 
-router.post('/signin', function(req, res) {
-  var username = req.body.email;
-  var pass = req.body.password;
-  console.log('the username is: ' + username);
-  console.log('the password is:' + pass);
-  cur = _db.collection('users').find({"username": username, "password": pass});
-  cur.toArray(function(err, docs) {
-      console.log(docs);
-      if (docs.length == 1) {
-          console.log('here2');
-          res.send({"done": true});
-          // res.send(200);
-      }
-      else {
-          // res.send(500);
-      }
-  });
-});
 
 router.get('/newAccount', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../', 'views', 'newAccount.html'));
@@ -223,15 +202,6 @@ router.get('/account/:username', function(req, res, next) {
     }
   });
 });
-
-
-
-
-
-
-
-
-
 
 
 

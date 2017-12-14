@@ -18,12 +18,12 @@ $(document).ready(function() {
     $('#login').click(function() {
         console.log(email);
         console.log(pass);
-        $.post('/signin', {'email': email, 'password': pass}, function(result) {
+        var post = $.post('/signin', {'email': email, 'password': pass}, function(result) {
             console.log('here3');
             // console.log(data);
             // window.location.href = '/account/' + email;
 
         });
-        
+
     });
 });
