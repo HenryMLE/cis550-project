@@ -9,27 +9,24 @@
         <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
         <!-- Custom styles for this template-->
     </head>
-    
+
     <body data-spy="scroll" data-target=".scrollspy">
          <div class="container">
          <div ng-controller="recipesController">
-            <p><span aria-hidden="true" class="glyphicon text-primary glyphicon-search"></span> Enter recipe keywords to search recipes: 
+            <p><span aria-hidden="true" class="glyphicon text-primary glyphicon-search"></span> Enter recipe keywords to search recipes:
                 <input name="query" ng-model="query" value="">
                 <button type="button" ng-click="Submit()" class="button">Search</button>
             </p>
-            <table border="0" cellpadding="10" cellspacing="1" width="500" align="center"> 
-                <tr> 
+            <table border="0" cellpadding="10" cellspacing="1" width="500" align="center">
+                <tr>
                 <td> Recipe Title </td>
-                <tr ng-repeat="x in data"> 
+                <tr ng-repeat="x in data">
                 <td> <a ng-href="/recipe/{{x.title}}">{{x.title}}</a> </td>
                 </tr>
             </table>
         </div>
         <div>
             Find inspiration for more recipes online!
-            <a class="twitter-timeline"  href="https://twitter.com/hashtag/healthyrecipes" data-widget-id="941238323393318913">#healthyrecipes Tweets</a>
-            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-            
             <script>
                 (function() {
                     var cx = '012742941723753601214:7l7gi7djuaq';
