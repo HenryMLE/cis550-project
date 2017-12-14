@@ -54,3 +54,32 @@ app.controller('addController', function ($scope, $http) {
         });
     };
 });
+
+app.controller('createController', function($scope, $http) {
+    $http.get( "/ingredients").success(function( data ) {
+        $scope.foods = data; //from your sample;
+        alert( "Load was performed. " + data );
+    });
+    $scope.ingredients = []
+    $scope.matches = []
+    $scope.add = function(food, qty) {
+        $scope.ingredients.push({food: food, qty: qty})
+    }
+    $scope.remove = function(ing) {
+        $scope.ingredients.remove(ing)
+    }
+    $scope.updateMatch = function() {
+        console.log("update match called: " + $scope.food);
+        $scope.matches = [];
+        for(var i = 0; i < $scope.foods.length; i++) {
+            if($scope.foods[i].match($scope.food+".*")) {
+                if($scope.matches.indexOf($scope.foods[i]) == -1){
+                    // console.log($scope.foods[i])
+                    $scope.matches.push($scope.foods[i]);
+                }
+            }
+            
+        }
+        return;
+    }
+});
