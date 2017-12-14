@@ -25,15 +25,6 @@ router.get('/', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../', 'views', 'index.html'));
 });
 
-// router.get('/reference', function(req, res, next) {
-//   res.sendFile(path.join(__dirname, '../', 'views', 'reference.html'));
-// });
-
-// router.get('/insert', function(req, res, next) {
-//   res.sendFile(path.join(__dirname, '../', 'views', 'insert.html'));
-// });
-
-
 
 // ================================== //
 // ============ RECIPES ============= //
@@ -124,6 +115,33 @@ router.get('/recipe/:id', function(req,res) {
       });
 });
 
+router.get('/addRecipe', function(req, res) {
+  res.sendFile(path.join(__dirname, '../', 'views', 'addRecipe.html'));
+});
+
+router.post('/addRecipe', function(req, res, nexxt) {
+  var username = req.body.username;
+  var title = req.body.title;
+  var ingredients = req.body.ingredients;
+  var directions = req.body.directions;
+
+  var newRecipe = {title: title, directions: directions, ingredients: ingredients};
+
+  _db.collection('users').findAndModify(
+    {username: username}, // query
+    [],  // sort order
+    { $push: { recipes: newRecipe } }, // replacement, replaces only the field "hi"
+    {}, // options
+    function(err, object) {
+      if (err){
+          console.warn(err.message);  // returns error if no matching object found
+      }else{
+          console.dir(object);
+      }
+    }
+  );
+});
+
 
 // ================================== //
 // ========= USER ACCOUNT =========== //
@@ -141,10 +159,12 @@ router.post('/signin', function(req, res) {
   cur.toArray(function(err, docs) {
       console.log(docs);
       if (docs.length == 1) {
-          res.send({"found": true});
+          console.log('here2');
+          res.send({found: true});
+          
       }
       else {
-          res.send({"found": false});
+          res.send({found: false});
       }
   });
 });
@@ -193,19 +213,3 @@ router.get('/account/:username', function(req, res, next) {
 
 
 module.exports = router;
-
-// ----Your implemention of route handler for "Insert a new record" should go here-----
-// router.post('/insertrecord', function(req, res, nexxt) {
-//   var login = req.body.login;
-//   var name = req.body.name;
-//   var sex = req.body.sex;
-//   var RelationshipStatus = req.body.RelationshipStatus;
-//   var Birthyear = req.body.Birthyear;
-
-//   var query = 'INSERT INTO Person (login, name, sex, relationshipStatus, birthyear) VALUES ("' + login + '", "' + name + '", "' + sex + '", "' + RelationshipStatus + '", "' + Birthyear + '");';
-//   connection.query(query, function(err, rows, fields) {
-//     if (err) {
-//       console.log(err);
-//     }
-//   });
-// });

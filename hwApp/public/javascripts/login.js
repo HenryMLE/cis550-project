@@ -16,17 +16,18 @@ $(document).ready(function() {
     });
 
     $('#login').click(function() {
-        console.log('hiiiiiiii');
         console.log(email);
         console.log(pass);
-        var post = $.post('/signin', {'email': email, 'password': pass}, function(data) {
-            console.log(data);
-            if (data.found) {
-                window.location.href = '/account/' + email;
-            }
-            else {
-                console.log('Incorrect username or password');
-            }
+        $.post('/signin', {'email': email, 'password': pass})
+            .done(function(data) {
+                console.log(data);
+                console.log('here');
+                if (data.found) {
+                    window.location.href = '/account/' + email;
+                }
+                else {
+                    console.log('Incorrect username or password');
+                }
         });
     });
 });
