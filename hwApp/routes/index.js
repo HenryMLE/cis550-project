@@ -25,8 +25,6 @@ router.get('/', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../', 'views', 'index.html'));
 });
 
-<<<<<<< HEAD
-
 // router.get('/reference', function(req, res, next) {
 //   res.sendFile(path.join(__dirname, '../', 'views', 'reference.html'));
 // });
@@ -57,8 +55,6 @@ router.get('/', function(req, res, next) {
 //     });
 // });
 
-=======
->>>>>>> c5c087b61e65f3acc8c62f91d303e19e80049f2d
 
 // ================================== //
 // ============ RECIPES ============= //
@@ -168,7 +164,7 @@ router.get('/ingredients', function(req, res) {
 
 router.get('/addRecipe', function(req, res) {
   res.sendFile(path.join(__dirname, '../', 'views', 'addRecipe.html'));
-}
+});
 
 router.post('/addRecipe', function(req, res, nexxt) {
   var username = req.body.username;
