@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html ng-app="angularjsNodejsTutorial">
     <head>
-        <title>Please enter a person login</title>
+        <title>Recipe Search</title>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
         <script src="javascripts/app.js" type="text/javascript"></script>
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <link href="stylesheets/styles.css" rel="stylesheet">
         <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
         <!-- Custom styles for this template-->
-        <!-- <link href="../css/navbar-static-top.css" rel="stylesheet"> -->
     </head>
+    
     <body data-spy="scroll" data-target=".scrollspy">
-        <header></header>
          <div class="container">
-            <!-- Main component for a primary marketing message or call to action-->
-            <div class="jumbotron">
          <div ng-controller="recipesController">
-            <p><span aria-hidden="true" class="glyphicon text-primary glyphicon-search"></span> Please enter a person login:
+            <p><span aria-hidden="true" class="glyphicon text-primary glyphicon-search"></span> Enter recipe keywords to search recipes: 
                 <input name="query" ng-model="query" value="">
-                <button type="button" ng-click="Submit()" class="button">Show Persons</button>
+                <button type="button" ng-click="Submit()" class="button">Search</button>
             </p>
             <table border="0" cellpadding="10" cellspacing="1" width="500" align="center"> 
                 <tr> 
@@ -25,6 +24,24 @@
                 <td> <a ng-href="/recipe/{{x._id}}">{{x.title}}</a> </td>
                 </tr>
             </table>
+        </div>
+        <div>
+            Find inspiration for more recipes online!
+            <a class="twitter-timeline"  href="https://twitter.com/hashtag/healthyrecipes" data-widget-id="941238323393318913">#healthyrecipes Tweets</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+            
+            <script>
+                (function() {
+                    var cx = '012742941723753601214:7l7gi7djuaq';
+                    var gcse = document.createElement('script');
+                    gcse.type = 'text/javascript';
+                    gcse.async = true;
+                    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+                    var s = document.getElementsByTagName('script')[0];
+                    s.parentNode.insertBefore(gcse, s);
+                })();
+            </script>
+            <gcse:search></gcse:search>
         </div>
     </body>
 </html>

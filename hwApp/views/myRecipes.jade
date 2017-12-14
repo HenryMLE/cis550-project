@@ -1,0 +1,22 @@
+html
+  head
+    link(href="https://fonts.googleapis.com/css?family=Roboto", rel="stylesheet")
+    link(href="../stylesheets/styles.css", rel="stylesheet")
+    link(href="../stylesheets/recipe.css", rel="stylesheet")
+  body
+    div
+      h1 Welcome #{params.user}
+
+      h2 Your Saved Recipes:
+      div
+        table 
+          thead
+            tr
+              th Recipe
+              th Preview
+          tbody
+            each rec in params.recs
+              if rec.title
+                tr
+                  td.rec #[a(href='/recipe/'+rec._id) #{rec.title}]
+                  td #{rec.directions}

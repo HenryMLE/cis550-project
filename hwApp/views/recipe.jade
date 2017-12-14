@@ -1,13 +1,57 @@
 html
+  head
+    link(href="https://fonts.googleapis.com/css?family=Roboto", rel="stylesheet")
+    link(href="../stylesheets/styles.css", rel="stylesheet")
+    link(href="../stylesheets/recipe.css", rel="stylesheet")
   body
     div
       h1 #{params.rec.title}
-
+      
+      h2 Aggregate Nutritional Information
+      div
+        table
+          thead
+            tr
+              th Sugar (g)
+              th Fiber (g)
+              th Sodium (mg)
+              th Cholesterol (mg)
+              th Saturated Fat (g)
+              th Carbohydrates (g)
+          tbody
+            tr
+              td #{params.agg.sugar}
+              td #{params.agg.fiber}
+              td #{params.agg.sodium}
+              td #{params.agg.cholesterol}
+              td #{params.agg.fat}
+              td #{params.agg.carbs}
+      
       h2 Recipe Directions
       p #{params.rec.directions}
-
+      
       h2 Recipe Ingredients
       div
-        for ing in params.rec.ingredients
-          if ing.food
-            h4 #{ing.food} : #{ing.quantity}
+        table
+          thead
+            tr
+              th Ingredient
+              th Quantity
+              th Sugar (g)
+              th Fiber (g)
+              th Sodium (mg)
+              th Cholesterol (mg)
+              th Saturated Fat (g)
+              th Carbohydrates (g)
+          tbody
+            each ing, i in params.rec.ingredients
+              if ing.food
+                tr
+                  td #{ing.food}
+                  td #{ing.quantity}
+                  td #{ing.sugar}
+                  td #{ing.fiber}
+                  td #{ing.sodium}
+                  td #{ing.cholesterol}
+                  td #{ing.fat}
+                  td #{ing.carbs}
