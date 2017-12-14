@@ -8,6 +8,46 @@ html
 
       h2 Recipe Ingredients
       div
-        for ing in params.rec.ingredients
-          if ing.food
-            h4 #{ing.food} : #{ing.quantity}
+        table
+          thead
+            tr
+              th Ingredient |
+              th Quantity |
+              th Sugar (grams) |
+              th Fiber (grams) |
+              th Sodium (milligrams) |
+              th Cholesterol (milligrams) |
+              th Saturated Fat (grams) |
+              th Carbohydrates (grams)
+          tbody
+            each ing, i in params.rec.ingredients
+              if ing.food
+                tr
+                  td #{ing.food}
+                  td #{ing.quantity}
+                  td #{ing.sugar}
+                  td #{ing.fiber}
+                  td #{ing.sodium}
+                  td #{ing.cholesterol}
+                  td #{ing.fat}
+                  td #{ing.carbs}
+
+      h2 Aggregate Nutritional Information
+      div
+        table
+          thead
+            tr
+              th Sugar (grams) |
+              th Fiber (grams) |
+              th Sodium (milligrams) |
+              th Cholesterol (milligrams) |
+              th Saturated Fat (grams) |
+              th Carbohydrates (grams)
+          tbody
+            tr
+              td #{params.agg.sugar}
+              td #{params.agg.fiber}
+              td #{params.agg.sodium}
+              td #{params.agg.cholesterol}
+              td #{params.agg.fat}
+              td #{params.agg.carbs}

@@ -14,6 +14,44 @@ app.controller('myController', function($scope, $http) {
     }; 
 });
 
+app.controller('recipesController', function($scope, $http) {
+    $scope.message="";
+    $scope.Submit = function() {
+        var request = $http.get('/search/'+$scope.query);
+        request.success(function(data) {
+            $scope.data = data;
+            console.log(data);
+        });
+        request.error(function(data){
+            console.log('err');
+        });
+    
+    }; 
+});
+
+// app.controller('signinController', function($scope, $http) {
+//     $scope.Submit = function() {
+//         var username = req.body.email;
+//         var pass = req.body.password;
+//         console.log('the username is: ' + username);
+//         console.log('the password is:' + pass);
+//         cur = database.collection('users').find({"username":username, "password":pass});
+//         cur.toArray(function(err, docs) {
+//             console.log(docs)
+//             if (docs.length == 1) {
+//                 res.send({"found": true});
+//             }
+//             else {
+//                 res.send({"found": false});
+//             }
+//         });
+//     };
+// });
+
+
+
+
+
 // To implement "Insert a new record", you need to:
 // - Create a new controller here
 // - Create a corresponding route handler in routes/index.js
@@ -37,20 +75,6 @@ app.controller('insertController', function ($scope, $http) {
     };
 });
 
-app.controller('recipesController', function($scope, $http) {
-    $scope.message="";
-    $scope.Submit = function() {
-        var request = $http.get('/search/'+$scope.query);
-        request.success(function(data) {
-            $scope.data = data;
-            console.log(data);
-        });
-        request.error(function(data){
-            console.log('err');
-        });
-    
-    }; 
-});
 
 // app.controller('recipeController', function($scope, $http) {
 //     console.log('in recipeController');
