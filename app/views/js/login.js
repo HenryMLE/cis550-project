@@ -22,10 +22,10 @@ $(document).ready(function() {
         var post = $.post('/signin', {'email': email, 'password': pass}, function(data) {
             console.log(data);
             if (data.found) {
-                $.get('/account', {'username':email});
+                window.location.href = '/account/' + email;
             }
             else {
-
+                console.log('Incorrect username or password');
             }
         });
     });
