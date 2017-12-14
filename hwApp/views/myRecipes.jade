@@ -1,4 +1,8 @@
 html
+  head
+    link(href="https://fonts.googleapis.com/css?family=Roboto", rel="stylesheet")
+    link(href="../stylesheets/styles.css", rel="stylesheet")
+    link(href="../stylesheets/recipe.css", rel="stylesheet")
   body
     div
       h1 Welcome #{params.user}
@@ -14,5 +18,5 @@ html
             each rec in params.recs
               if rec.title
                 tr
-                  td #[a(href='/recipe/'+rec._id) #{rec.title}]
+                  td.rec #[a(href='/recipe/'+rec._id) #{rec.title}]
                   td #{rec.directions}
