@@ -18,16 +18,12 @@ $(document).ready(function() {
     $('#login').click(function() {
         console.log(email);
         console.log(pass);
-        $.post('/signin', {'email': email, 'password': pass})
-            .done(function(data) {
-                console.log(data);
-                console.log('here');
-                if (data.found) {
-                    window.location.href = '/account/' + email;
-                }
-                else {
-                    console.log('Incorrect username or password');
-                }
+        $.post('/signin', {'email': email, 'password': pass}, function(result) {
+            console.log('here3');
+            // console.log(data);
+            // window.location.href = '/account/' + email;
+
         });
+        
     });
 });

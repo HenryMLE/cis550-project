@@ -32,42 +32,35 @@ app.controller('recipesController', function($scope, $http) {
 
 app.controller('addController', function ($scope, $http) {
     $scope.message="";
-    $scope.Add = function() {
-        var ings = [];
-        var ingSplit = $scope.ingredients.split("\n");
-        for (var i = 0; i < ingSplit.length; i++) {
-            var parts = ingSplit[i].split(":");
-            ings.push({food: parts[0], quantity: parts[1]});
-        }
 
-        var request = $http.post('/addRecipe', {
-            'username':$scope.username,
-            'title':$scope.title,
-            'ingredients':ings,
-            'directions':$scope.directions
-        });
-        request.success(function(data) {
-            console.log('successful insert');
-        });
-        request.error(function(data){
-            console.log('err');
-        });
-    };
-});
-
-app.controller('createController', function($scope, $http) {
     $http.get( "/ingredients").success(function( data ) {
         $scope.foods = data; //from your sample;
-        alert( "Load was performed. " + data );
+        // alert( "Load was performed. " + data );
     });
+
+    $scope.Add = function() {
+        $http.post('/addRecipe', {
+            'username':$scope.username,
+            'title':$scope.title,
+            'ingredients':$scope.ingredients,
+            'directions':$scope.directions
+        }).success(function(data) {
+            console.log('successful insert');
+            alert("Recipe successfully added! Please visit your account page to view recipes.");
+        });
+    };
+
     $scope.ingredients = []
     $scope.matches = []
-    $scope.add = function(food, qty) {
-        $scope.ingredients.push({food: food, qty: qty})
+
+    $scope.add = function(food, quantity) {
+        $scope.ingredients.push({food: food, quantity: quantity});
     }
+
     $scope.remove = function(ing) {
         $scope.ingredients.remove(ing)
     }
+
     $scope.updateMatch = function() {
         console.log("update match called: " + $scope.food);
         $scope.matches = [];

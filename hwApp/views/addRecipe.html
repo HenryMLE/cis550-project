@@ -18,17 +18,34 @@
     <!-- Custom styles for this template -->
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="stylesheets/styles.css" rel="stylesheet">
+    <link href="stylesheets/addRecipe.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-
   </head>
 
   <body>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">RiteBite</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" ng-href="/account/test@test.com">Account</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
 
     <div class="container">
       <div ng-controller="addController">
         <form>
           <div class="form-group">
-            <label for="username">Confirm Username</label>
+            <label for="username">Author</label>
             <input type="email" class="form-control" ng-model="username" placeholder="Enter username">
           </div>
           <div class="form-group">
@@ -37,8 +54,25 @@
           </div>
           <div class="form-group">
             <label for="ingredients">Ingredients</label>
-            <textarea class="form-control" ng-model="ingredients" rows="3" placeholder="eggs:2"></textarea>
-            <small id="ing-help" class="form-text text-muted">Enter on each line as follows: "eggs: 2"</small>
+            <!-- <textarea class="form-control" ng-model="ingredients" rows="3" placeholder="eggs:2"></textarea>
+            <small id="ing-help" class="form-text text-muted">Enter on each line as follows: "eggs: 2"</small> -->
+            
+            
+            <table border="0" cellpadding="10" cellspacing="1" width="500" align="center"> 
+                <tr ng-repeat="x in ingredients"> 
+                <td> {{x.food}} </td>
+                <td> {{x.quantity}} </td>
+                </tr>
+            </table>
+
+            <input id="autocomplete" name="food" ng-model="food" ng-keyup="updateMatch()" value="">
+            <input name="quantity" ng-model="quantity" value="">
+            <div ng-show="matches.length > 0">
+                <ul ng-repeat="m in matches">
+                    <li ng-click="$scope.food = this.text">{{ m }}</li>
+                </ul>
+            </div>
+            <button type="button" ng-click="add(food, quantity)" class="button">Add</button>
           </div>
           <div class="form-group">
             <label for="directions">Cooking Directions</label>

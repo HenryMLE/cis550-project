@@ -18,5 +18,5 @@ html
             each rec in params.recs
               if rec.title
                 tr
-                  td.rec #[a(href='/recipe/'+rec._id) #{rec.title}]
+                  td.rec #[a(href='/recipe/'+rec.title) #{rec.title}]
                   td #{rec.directions}

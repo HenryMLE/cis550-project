@@ -25,41 +25,6 @@ router.get('/', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../', 'views', 'index.html'));
 });
 
-<<<<<<< HEAD
-
-// router.get('/reference', function(req, res, next) {
-//   res.sendFile(path.join(__dirname, '../', 'views', 'reference.html'));
-// });
-
-// router.get('/insert', function(req, res, next) {
-//   res.sendFile(path.join(__dirname, '../', 'views', 'insert.html'));
-// });
-
-// router.get('/data/:email', function(req,res) {
-//   // use console.log() as print() in case you want to debug, example below:
-//   console.log("inside person email");
-//   var query = 'SELECT * from Person';
-//   // you may change the query during implementation
-//   var email = req.params.email;
-//   if (email != 'undefined') {
-//     query = 'SELECT P.*, count(*) AS num_friends FROM Person P INNER JOIN Friends F on P.login = F.login WHERE P.login="' + email + '" GROUP BY P.login;'
-//   } else {
-//     query = 'SELECT P.*, count(*) AS num_friends FROM Person P INNER JOIN Friends F on P.login = F.login GROUP BY P.login;'
-//   }
-//   console.log(query);
-//   connection.query(query, function(err, rows, fields) {
-//     if (err) {
-//       console.log(err);
-//     }
-//     else {
-//         res.json(rows);
-//     }  
-//     });
-// });
-
-=======
->>>>>>> c5c087b61e65f3acc8c62f91d303e19e80049f2d
-
 // ================================== //
 // ============ RECIPES ============= //
 // ================================== //
@@ -79,9 +44,10 @@ router.get('/recipes', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../', 'views', 'recipes.html'));
 });
 
-router.get('/recipe/:id', function(req,res) {
-    var r_id = new mongo.ObjectID(req.params.id);
-    _db.collection('recipes').findOne({"_id": r_id}, function(err, result) {
+router.get('/recipe/:title', function(req,res) {
+    // var r_id = new mongo.ObjectID(req.params.id);
+
+    _db.collection('recipes').findOne({"title": {$regex : ".*"+req.params.title+".*", $options : "i"}}, function(err, result) {
         if (err) {
             console.log(err);
         }
@@ -164,11 +130,11 @@ router.get('/ingredients', function(req, res) {
     }
     res.json(names)
   });
-})
+});
 
 router.get('/addRecipe', function(req, res) {
   res.sendFile(path.join(__dirname, '../', 'views', 'addRecipe.html'));
-}
+});
 
 router.post('/addRecipe', function(req, res, nexxt) {
   var username = req.body.username;
@@ -178,6 +144,12 @@ router.post('/addRecipe', function(req, res, nexxt) {
 
   var newRecipe = {title: title, directions: directions, ingredients: ingredients};
 
+  _db.collection('recipes').insertOne(newRecipe, function(err, res) {
+    if (err) {
+      console.log(err);
+    }
+  })
+
   _db.collection('users').findAndModify(
     {username: username}, // query
     [],  // sort order
@@ -186,11 +158,11 @@ router.post('/addRecipe', function(req, res, nexxt) {
     function(err, object) {
       if (err){
           console.warn(err.message);  // returns error if no matching object found
-      }else{
-          console.dir(object);
       }
     }
   );
+
+  res.send(200);
 });
 
 
@@ -211,11 +183,11 @@ router.post('/signin', function(req, res) {
       console.log(docs);
       if (docs.length == 1) {
           console.log('here2');
-          res.send({found: true});
-          
+          res.send({"done": true});
+          // res.send(200);
       }
       else {
-          res.send({found: false});
+          // res.send(500);
       }
   });
 });
@@ -229,7 +201,7 @@ router.post('/newAccount', function(req, res, next) {
   console.log('reached browser post!');
   var email = req.body.email;
   var pass = req.body.password;
-  database.collection('users').save({
+  _db.collection('users').save({
       username: email,
       password: pass,
       recipes: []
