@@ -25,6 +25,7 @@ router.get('/', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../', 'views', 'index.html'));
 });
 
+
 // router.get('/reference', function(req, res, next) {
 //   res.sendFile(path.join(__dirname, '../', 'views', 'reference.html'));
 // });
@@ -108,6 +109,22 @@ router.get('/recipe/:id', function(req,res) {
         }
       });
 });
+
+router.get('/create', function(req, res) {
+  res.sendFile(path.join(__dirname, '../', 'views', 'create.html'));  
+});
+
+
+router.get('/ingredients', function(req, res) {
+  var sql = "SELECT shrt_desc FROM ritebite.ingredients;"
+  connection.query(sql, function(err, result){
+    var names = []
+    for(var i = 0; i < result.length; i++) {
+      names.push(result[i].shrt_desc)
+    }
+    res.json(names)
+  });
+})
 
 
 
