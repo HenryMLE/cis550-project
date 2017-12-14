@@ -32,7 +32,6 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
-
 router.get('/create', function(req, res, next){
   var sql = "SELECT shrt_desc FROM ritebite.ingredients;"
   connection.query(sql, function(err, result){
