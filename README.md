@@ -1,2 +1,2 @@
 # cis550-project
-Final project for CIS550
+Restaurant Recommender System (Final project for CIS550)
